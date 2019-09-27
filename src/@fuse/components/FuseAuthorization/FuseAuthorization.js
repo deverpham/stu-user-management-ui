@@ -12,7 +12,7 @@ class FuseAuthorization extends Component {
         super(props);
         const {routes} = context;
         this.state = {
-            accessGranted: true,
+            accessGranted: false,
             routes
         };
     }
@@ -39,7 +39,7 @@ class FuseAuthorization extends Component {
         const {pathname} = location;
 
         const matched = matchRoutes(state.routes, pathname)[0];
-
+        console.log('matched', matched);
         return {
             accessGranted: matched ? FuseUtils.hasPermission(matched.route.auth, userRole) : true
         }
@@ -82,7 +82,6 @@ class FuseAuthorization extends Component {
 
     render()
     {
-        // console.info('Fuse Authorization rendered', accessGranted);
         return this.state.accessGranted ? <React.Fragment>{this.props.children}</React.Fragment> : null;
     }
 }
